@@ -1,0 +1,123 @@
+
+```{r}
+
+library(plyr)
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+
+1. Cree un arreglo de 1500 valores con distribución de probabilidad
+normal con media = 0 y desviación estándar = 5.
+```{r}
+valores=1500
+
+set.seed(10)
+X<-rnorm(n=valores, mean=0, sd=5) 
+
+head(X)
+
+
+```
+
+2. Cree una suma acumulativa de estos valores.
+```{r}
+
+Y<- cumsum(rnorm(n=valores, mean=0, sd=5))
+
+Y
+
+
+```
+3. cree una serie temporal con ts()
+
+```{r}
+
+serie<-ts(cumsum(X))
+serie
+```
+
+4. muestre una grafica de la serie temporal  
+```{r}
+plot(serie)
+
+```
+5. Verifique la descomposición de la serie tiempo usando una frecuencia
+de 12.
+
+```{r}
+
+serie2<-ts(cumsum(X), frequency = 12)
+
+plot(serie2)
+
+```
+
+7. Determine se la serie es estacionar o no (stationarity).
+---no es stationarity, como se pude ver el vapor  p-value es relativamente grande ademas en la grafica como ver como tiene tendencia.
+```{r}
+library(tseries)
+
+adf.test(serie)
+
+```
+    
+
+8. De no ser estacionar, investigue como es posible resolver este
+problema usando diferenciación temporal.
+
+```{r}
+
+seriedif<- diff(serie)
+
+
+```
+
+9. Muestre y una grafica sobre la serie temporal resultante.
+```{r}
+
+plot(seriedif)
+
+
+```
+Parte  #2
+
+
+1. Analice la estructura del dataset, no que existe una variable de
+timestamp, producto y valor de producción.
+
+```{r}
+
+data<- read.csv("dataOut.csv")
+View(data)
+
+```
+
+
+2. Cree un modelo arima usando auto.arima para cada uno de los
+productos en la data.
+
+```{r}
+
+```
+
+3. Tome en cuenta que cada id_producto posee 38 observaciones cada
+uno, por lo que deberá desarrollar un mecanismo que le permita
+seleccionar la data de timestamp y producción por cada valor de
+id_producto para poder seleccionar y entrenar el modelo.
+
+```{r}
+
+```
+
+4. Genere las predicciones para cada caso el cual sea la mitad de la ventana
+de data actual es decir 16 ciclos (meses) hacia delante.
+
+```{r}
+
+```
+
+
+5. Genere una gráfica para cada caso.
